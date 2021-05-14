@@ -12,7 +12,10 @@ if [ $file = tools -o $file = licensed -o $file = shared ]; then
 		cd $file
 		git $@
 		cd ..
-	fi
+        else
+                echo "nothing need to do  < git $@ >  for repo [$file]"
+        fi
+
 else
 	cd $file
 	git $@
