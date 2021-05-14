@@ -1,4 +1,7 @@
 #!/bin/bash
+#8.x include 7 repos,which list in work_git
+#tools,licensed,shared are not needed to be changed by me. only when need to sync to mainline, we need to update it
+#these 3 repos remain at latest mainline repos.
 work_git="ap common opensource gateway tools licensed  shared"
 #work_git="ap common opensource gateway"
 for file in $work_git
