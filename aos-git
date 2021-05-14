@@ -1,0 +1,18 @@
+#!/bin/bash
+work_git="ap common opensource gateway tools licensed  shared"
+#work_git="ap common opensource gateway"
+for file in $work_git
+do
+printf "============================  %-10s ==================================\n" $file
+if [ $file = tools -o $file = licensed -o $file = shared ]; then
+	if [ $1 = pull ]; then
+		cd $file
+		git $@
+		cd ..
+	fi
+else
+	cd $file
+	git $@
+	cd ..
+fi
+done

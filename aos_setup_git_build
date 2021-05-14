@@ -1,0 +1,11 @@
+#!/bin/bash -v  
+build_dir=build-$1
+mkdir $build_dir
+cp -apr clones-aos-src/ap/. $build_dir/
+cp -apr clones-aos-src/gateway/. $build_dir/
+cp -apr clones-aos-src/common/. $build_dir/
+cp -apr clones-aos-src/opensource/. $build_dir/
+cp -apr clones-aos-src/tools/. $build_dir/
+cp -apr clones-aos-src/licensed/. $build_dir/
+cp -apr clones-aos-src/shared/. $build_dir/
+find $build_dir/ -name ".git" | xargs rm -rf
