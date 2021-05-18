@@ -8,7 +8,7 @@ for file in $work_git
 do
 printf "============================  %-10s ==================================\n" $file
 if [ $file = tools -o $file = licensed -o $file = shared ]; then
-	if [ $1 = pull ]; then
+	if [ $1 = pull -o $1 = log ]; then
 		cd $file
 		git $@
 		cd ..
