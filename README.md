@@ -1,2 +1,2 @@
 # inch_repo
-This is a branch test1
+This is a branch test2
