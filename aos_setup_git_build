@@ -1,11 +1,54 @@
-#!/bin/bash -v  
+#!/bin/zsh  
 build_dir=build-$1
 mkdir $build_dir
-cp -aprf clones-aos-src/ap/. $build_dir/
-cp -aprf clones-aos-src/gateway/. $build_dir/
-cp -aprf clones-aos-src/common/. $build_dir/
-cp -aprf clones-aos-src/opensource/. $build_dir/
-cp -aprf clones-aos-src/tools/. $build_dir/
-cp -aprf clones-aos-src/licensed/. $build_dir/
-cp -aprf clones-aos-src/shared/. $build_dir/
-find $build_dir/ -name ".git" | xargs rm -rf
+pwd|grep "/work/dev/c2c" > /dev/null
+if [ $? -ne 0 ];then
+	my_ws="mainline"
+else
+	my_ws="c2c"
+fi
+if [ $my_ws = "mainline" ];then
+	echo " \033[33m Setup 8.x build workspace:$build_dir \033[0m "
+	echo " \033[33m copying ap repo \033[0m "
+	cp -aprf ap/. $build_dir/
+	echo " \033[33m copying gateway repo \033[0m "
+	cp -aprf gateway/. $build_dir/
+	echo " \033[33m copying common repo \033[0m "
+	cp -aprf common/. $build_dir/
+	echo " \033[33m copying opensource repo \033[0m "
+	cp -aprf opensource/. $build_dir/
+	echo " \033[33m copying tools repo \033[0m "
+	cp -aprf tools/. $build_dir/
+	echo " \033[33m copying licensed repo \033[0m "
+	cp -aprf licensed/. $build_dir/
+	if [ x$2 != xold ]; then
+		echo " \033[33m copying shared repo \033[0m "
+		cp -aprf shared/. $build_dir/
+	fi
+	echo " \033[33m copying shared-old repo \033[0m "
+	cp -aprf shared-old/. $build_dir/
+	echo " \033[33m clear .git \033[0m "
+	find $build_dir/ -name ".git" | xargs rm -rf
+elif [ $my_ws = "c2c" ];then
+	echo " \033[33m Setup 10.x build workspace:$build_dir \033[0m "
+	echo " \033[33m copying ap repo \033[0m "
+	cp -aprf ap/. $build_dir/
+	echo " \033[33m copying gateway repo \033[0m "
+	cp -aprf gateway/. $build_dir/
+	echo " \033[33m copying common repo \033[0m "
+	cp -aprf common/. $build_dir/
+	echo " \033[33m copying opensource repo \033[0m "
+	cp -aprf opensource/. $build_dir/
+	echo " \033[33m copying tools repo \033[0m "
+	cp -aprf tools/. $build_dir/
+	echo " \033[33m copying licensed repo \033[0m "
+	cp -aprf licensed/. $build_dir/
+	if [ x$2 != xold ]; then
+		echo " \033[33m copying shared repo \033[0m "
+		cp -aprf shared/. $build_dir/
+	fi
+	echo " \033[33m copying shared-old repo \033[0m "
+	cp -aprf shared-old/. $build_dir/
+	echo " \033[33m clear .git \033[0m "
+	find $build_dir/ -name ".git" | xargs rm -rf
+fi

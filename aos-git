@@ -2,23 +2,29 @@
 #8.x include 7 repos,which list in work_git
 #tools,licensed,shared are not needed to be changed by me. only when need to sync to mainline, we need to update it
 #these 3 repos remain at latest mainline repos.
-work_git="ap common opensource gateway tools licensed  shared"
-#work_git="ap common opensource gateway"
+pwd|grep c2c > /dev/null
+if [ $? -eq 0 ];then
+	cd ~/work/dev/c2c
+	work_git="ap common opensource gateway tools licensed shared shared-old"
+else
+	cd ~/work/dev/mainline
+	work_git="ap common opensource gateway tools licensed shared shared-old"
+fi
+echo -e "\033[33mwork space is `pwd`\033[0m"
 for file in $work_git
 do
-printf "============================  %-10s ==================================\n" $file
-if [ $file = tools -o $file = licensed -o $file = shared ]; then
-	if [ $1 = pull -o $1 = log ]; then
-		cd $file
-		git $@
-		cd ..
-        else
-                echo "nothing need to do  < git $@ >  for repo [$file]"
-        fi
-
-else
 	cd $file
-	git $@
+
+	if [ $file = "shared" ] || [ $file = "shared-old" ] ; then
+		echo $@ |grep c2c > /dev/null
+		if [ $? -eq 0 ];then
+			MYGIT="git ${@/c2c/mainline}" 
+		fi
+	else
+		MYGIT="git $@"
+	fi
+	echo -e "\033[32m$MYGIT for $file\033[0m"
+	$MYGIT
+
 	cd ..
-fi
 done
