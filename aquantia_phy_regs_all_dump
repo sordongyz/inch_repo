@@ -1,0 +1,214 @@
+#!/bin/sh
+echo "Collecting all of the aquantia phy registers"
+phyid=7
+
+#to get single reg, only one parme :$1 the register address, eg,1eff00
+get_single_reg() {
+	echo "$phyid 0x$1" > /sys/kernel/debug/aquantia-phy-$phyid/phy-read-reg 
+	cat /sys/kernel/debug/aquantia-phy-$phyid/phy-read-reg
+}
+
+# to get range of registers
+# $1 is the base register address with dec base
+# $2 is the num of resiters dec basse.
+get_range_regs() {
+	cnt=0
+	total_cnt=$2
+	reg_addr=$1
+	res=`expr $cnt \< $total_cnt`
+	while [ $res -eq 1 ];
+	do
+		hexreg_addr=`echo $reg_addr |awk '{printf("0x%x\n",$0)}'`
+		echo "$phyid $hexreg_addr" > /sys/kernel/debug/aquantia-phy-$phyid/phy-read-reg 
+		cat /sys/kernel/debug/aquantia-phy-$phyid/phy-read-reg
+		reg_addr=`expr $reg_addr + 1`
+		cnt=`expr $cnt + 1`
+		res=`expr $cnt \< $total_cnt`
+	done
+}
+
+get_range_regs 65536 16
+get_range_regs 65665 19
+get_range_regs 71680 9
+get_range_regs 98304 263 
+get_range_regs 102400 7
+get_range_regs 106496 8
+get_range_regs 106592 21
+get_single_reg 1A100
+get_single_reg 1c412
+get_single_reg 1c413
+get_range_regs 117760 4
+get_range_regs 118784 2
+get_range_regs 119808 3
+get_single_reg 1d800
+get_single_reg 1e400
+get_single_reg 1e800
+get_single_reg 1e810
+get_single_reg 1e811
+get_single_reg 1fc00
+sleep 2
+get_range_regs 196608 16
+get_single_reg 30014
+get_single_reg 30016
+get_range_regs 196640 12
+get_range_regs 202752 9
+get_range_regs 246784 3
+get_single_reg 3c410
+get_range_regs 246784 156
+get_range_regs 247840 4
+get_range_regs 247904 4
+get_range_regs 247920 4
+get_range_regs 247936 5
+get_single_reg 3c8c0
+get_single_reg 3c8d0
+get_single_reg 3c8f0
+get_range_regs 248064 55
+get_range_regs 248832 4
+get_range_regs 249856 3
+get_range_regs 250800 4
+get_single_reg 3d800
+get_single_reg 3e400
+get_single_reg 3e460
+get_single_reg 3e461
+get_single_reg 3e470
+get_single_reg 3e471
+get_range_regs 244184 5
+get_range_regs 255200 5
+get_range_regs 255488 41
+get_single_reg 3e800
+get_range_regs 256016 18
+get_range_regs 256064 55
+get_range_regs 256208 7
+get_range_regs 256224 7
+get_range_regs 257293 5
+get_range_regs 259072 7
+get_single_reg 3f800
+get_single_reg 3fc00
+sleep 2
+get_range_regs 262144 26
+get_range_regs 268288 9
+get_single_reg 4c1c0
+get_single_reg 4c1d0
+get_single_reg 4c1e0
+get_single_reg 4c1f0
+get_single_reg 4c200
+get_range_regs 312320 6
+get_range_regs 313346 6
+get_range_regs 313376 3
+get_range_regs 314368 3
+get_single_reg 4d000
+get_single_reg 4d001
+get_range_regs 316416 3
+get_single_reg 4d800
+get_single_reg 4d801
+get_range_regs 317456 5
+get_range_regs 320528 10
+get_range_regs 321538 4
+get_single_reg 4e810
+get_single_reg 4e812
+get_single_reg 4ec00
+get_single_reg 4ec01
+get_single_reg 4f400
+get_single_reg 4f401
+get_single_reg 4f800
+get_single_reg 4f801
+get_single_reg 4f802
+get_single_reg 4fc00
+sleep 2
+get_range_regs 458752 34
+get_single_reg 7003c
+get_single_reg 7003d
+get_range_regs 508416 28
+get_single_reg 7c300
+get_single_reg 7c301
+get_range_regs 508688 12
+get_single_reg 7c400
+get_single_reg 7c410
+get_single_reg 7c411
+get_single_reg 7c800
+get_range_regs 509968 5
+get_single_reg 7cc00
+get_single_reg 7cc01
+get_single_reg 7d000
+get_single_reg 7d001
+get_single_reg 7d400
+get_single_reg 7d401
+get_single_reg 7d402
+get_range_regs 518176 4
+get_single_reg 7e830
+get_single_reg 7e831
+get_single_reg 7e832
+get_single_reg 7ec00
+get_single_reg 7ec01
+get_single_reg 7ec02
+get_single_reg 7ec03
+get_single_reg 7f400
+get_single_reg 7f401
+get_single_reg 7f402
+get_single_reg 7f403
+get_single_reg 7fc00
+sleep 2
+get_range_regs 1900544 16
+get_single_reg 1dc282
+get_range_regs 1950464 60
+get_range_regs 1950752 30
+get_range_regs 1950976 2
+get_range_regs 1954432 25
+get_range_regs 1954562 33
+get_single_reg 1dec10
+get_single_reg 1dec20
+get_single_reg 1df410
+get_single_reg 1df420
+get_single_reg 1dfc00
+sleep 2
+get_range_regs 1966080 33
+get_range_regs 1966336 6
+get_range_regs 1966592 7
+get_range_regs 1966868 2
+get_single_reg 1ec000
+get_single_reg 1ec001
+get_single_reg 1ec006
+get_single_reg 1ec400
+get_single_reg 1ec420
+get_single_reg 1ec421
+get_single_reg 1ec422
+get_single_reg 1ec423
+get_single_reg 1ec424
+get_range_regs 2016304 36
+get_range_regs 2016368 16
+get_single_reg 1ec485
+get_single_reg 1ec495
+get_single_reg 1ec4a0
+get_range_regs 2017280 8
+get_single_reg 1ec820
+get_single_reg 1ec821
+get_single_reg 1ec830
+get_single_reg 1ec831
+get_single_reg 1ec840
+get_single_reg 1ec842
+get_single_reg 1ec850
+get_range_regs 2017408 9
+get_single_reg 1ecc00
+get_single_reg 1ecc01
+get_single_reg 1ecc02
+get_single_reg 1ed400
+get_single_reg 1ed401
+get_single_reg 1ed402
+get_single_reg 1efc00
+get_single_reg 1efc01
+get_single_reg 1eff00
+get_single_reg 1eff01
+
+
+
+
+
+
+
+
+
+
+
+
+
+
